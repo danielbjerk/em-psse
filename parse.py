@@ -40,12 +40,12 @@ for i in raw_data:
 
 formatted=format_all(raw_data)
 
-df_zone=formatted['zone']
-df_tf=formatted['transformer']
-df_gen=formatted['gen']
-df_branch=formatted['branch']
-df_load=formatted['load']
-df_bus=formatted['bus']
+df_zone=formatted.get('zone',None)
+df_tf=formatted.get('transformer',None)
+df_gen=formatted.get('gen')
+df_branch=formatted.get('branch')
+df_load=formatted.get('load')
+df_bus=formatted.get('bus')
 
 
 print(df_tf.head())
