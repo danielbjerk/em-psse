@@ -42,10 +42,10 @@ formatted=format_all(raw_data)
 
 df_zone=formatted.get('zone',None)
 df_tf=formatted.get('transformer',None)
-df_gen=formatted.get('gen')
-df_branch=formatted.get('branch')
-df_load=formatted.get('load')
-df_bus=formatted.get('bus')
+df_gen=formatted.get('gen',None)
+df_branch=formatted.get('branch',None)
+df_load=formatted.get('load',None)
+df_bus=formatted.get('bus',None)
 
 
 print(df_tf.head())
