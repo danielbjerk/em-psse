@@ -9,7 +9,7 @@ logger = logging.getLogger('em.psse')
 import os
 dirname = os.path.dirname(__file__)
 with open('{}/psse-modes.yaml'.format(dirname),'r') as in_file:
-	modes = yaml.load(in_file)
+	modes = yaml.safe_load(in_file)
 
 
 	
@@ -73,7 +73,7 @@ def read_transformer(lines,records):
 		for record in line_holder[winding]:
 			rc+=1
 			text = StringIO(''.join(record))
-			dfs[winding].append(pd.read_table(text,sep=',', error_bad_lines=False))
+			dfs[winding].append(pd.read_table(text,sep=',', on_bad_lines='warn'))
 			logger.debug("{} {} {}".format(winding,rc,len(record)))
 			logger.debug("{}".format(record[0]))
 	return dfs
@@ -200,7 +200,7 @@ def parse_raw(in_file_name):
 			output[i]['dfs']=read_transformer(lines,output[i]['records'])
 			df2=pd.concat(output[i]['dfs'][2],axis=1, sort=False)
 			df3=pd.concat(output[i]['dfs'][3],axis=1, sort=False)
-			output[i]['df']=df3.append(df2,sort=False)
+			output[i]['df']=pd.concat([df3,df2],sort=False)
 
 		if 'read_twodc' in output[i]['parse']:
 			output[i]['dfs']=read_twodc(lines,output[i]['records'])
